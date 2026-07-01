@@ -120,10 +120,48 @@
 
 .inicio-title-line--accent {
   background: linear-gradient(135deg, #ffffff 0%, #93c5fd 45%, #6366f1 100%);
+  background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation-delay: 0.45s;
+  animation:
+    inicio-fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.45s forwards,
+    inicio-gradient-shift 7s ease-in-out 1.3s infinite;
+}
+
+.inicio-hero-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(147, 197, 253, 0.85);
+  box-shadow: 0 0 12px rgba(96, 165, 250, 0.5);
+  opacity: 0;
+  animation: inicio-particle-float 8s ease-in-out infinite;
+}
+
+.inicio-hero-particle--1 {
+  width: 4px;
+  height: 4px;
+  top: 28%;
+  left: 22%;
+  animation-delay: 0s;
+}
+
+.inicio-hero-particle--2 {
+  width: 3px;
+  height: 3px;
+  top: 62%;
+  left: 78%;
+  animation-delay: -2.5s;
+  opacity: 0;
+}
+
+.inicio-hero-particle--3 {
+  width: 5px;
+  height: 5px;
+  top: 72%;
+  left: 30%;
+  animation-delay: -5s;
+  opacity: 0;
 }
 
 .inicio-subtitle {
@@ -133,11 +171,16 @@
 
 .inicio-cta {
   opacity: 0;
-  animation: inicio-cta-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.85s forwards;
+  animation:
+    inicio-cta-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.85s forwards,
+    inicio-cta-glow 3s ease-in-out 1.6s infinite;
   box-shadow: 0 0 0 rgba(37, 99, 235, 0);
 }
 
 .inicio-cta:hover {
+  animation: none;
+  opacity: 1;
+  transform: none;
   box-shadow: 0 8px 28px rgba(37, 99, 235, 0.45);
 }
 
@@ -171,6 +214,29 @@
 @keyframes inicio-ring-spin {
   from { transform: translate(-50%, -50%) rotate(0deg); }
   to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes inicio-gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes inicio-particle-float {
+  0%, 100% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.6);
+  }
+  15% { opacity: 0.7; }
+  50% {
+    opacity: 0.9;
+    transform: translate(18px, -28px) scale(1);
+  }
+  85% { opacity: 0.5; }
+}
+
+@keyframes inicio-cta-glow {
+  0%, 100% { box-shadow: 0 0 0 rgba(37, 99, 235, 0); }
+  50% { box-shadow: 0 0 24px rgba(37, 99, 235, 0.35); }
 }
 
 @media (min-width: 769px) {
@@ -232,6 +298,7 @@
 
   .inicio-title-line--accent {
     background: linear-gradient(135deg, #ffffff 0%, #bfdbfe 38%, #818cf8 72%, #6366f1 100%);
+    background-size: 200% 200%;
     -webkit-background-clip: text;
     background-clip: text;
     filter: drop-shadow(0 8px 28px rgba(99, 102, 241, 0.25));
@@ -313,6 +380,7 @@
 @media (prefers-reduced-motion: reduce) {
   .inicio-hero-glow,
   .inicio-hero-ring,
+  .inicio-hero-particle,
   .inicio-eyebrow,
   .inicio-headline,
   .inicio-title-line,
@@ -321,5 +389,9 @@
     animation: none;
     opacity: 1;
     transform: none;
+  }
+
+  .inicio-hero-particle {
+    display: none;
   }
 }

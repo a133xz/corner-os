@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState, type MouseEvent as ReactMouse
 import { useNavigate } from 'react-router-dom'
 import { apps, initialOpenApps } from '../data/apps'
 import BottomNav from '../components/BottomNav'
+import DesktopBrandBg from '../components/DesktopBrandBg'
 import { useIsMobile } from '../hooks/useIsMobile'
 import '../styles/desktop.css'
 import '../styles/bottom-nav.css'
@@ -252,6 +253,8 @@ export default function DesktopPage() {
       <div className="bg-shape shape-1" />
       <div className="bg-shape shape-2" />
       <div className="bg-shape shape-3" />
+
+      <DesktopBrandBg />
 
       <div className="desktop-shortcuts">
         {apps.map((app) => (

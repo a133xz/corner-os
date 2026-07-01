@@ -8,6 +8,9 @@ export function InicioContent() {
           <div className="inicio-hero-glow" />
           <div className="inicio-hero-ring inicio-hero-ring--1" />
           <div className="inicio-hero-ring inicio-hero-ring--2" />
+          <div className="inicio-hero-particle inicio-hero-particle--1" />
+          <div className="inicio-hero-particle inicio-hero-particle--2" />
+          <div className="inicio-hero-particle inicio-hero-particle--3" />
         </div>
 
         <p className="inicio-eyebrow">Consultoría digital · tecnología</p>

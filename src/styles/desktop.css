@@ -120,6 +120,9 @@
   align-items: center;
   width: 80px;
   cursor: pointer;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: desktop-icon-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   transition: transform 0.2s;
   user-select: none;
   background: none;
@@ -128,8 +131,26 @@
   padding: 0;
 }
 
+.desktop-icon:nth-child(1) { animation-delay: 0.05s; }
+.desktop-icon:nth-child(2) { animation-delay: 0.12s; }
+.desktop-icon:nth-child(3) { animation-delay: 0.19s; }
+.desktop-icon:nth-child(4) { animation-delay: 0.26s; }
+.desktop-icon:nth-child(5) { animation-delay: 0.33s; }
+.desktop-icon:nth-child(6) { animation-delay: 0.4s; }
+
 .desktop-icon:hover {
   transform: scale(1.05);
+}
+
+@keyframes desktop-icon-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .desktop-icon .icon-bg {
@@ -185,7 +206,7 @@
   visibility: hidden;
   transform: scale(0.95);
   pointer-events: none;
-  transition: opacity 0.3s, transform 0.3s, box-shadow 0.3s, visibility 0.3s;
+  transition: opacity 0.35s, transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1), box-shadow 0.3s, visibility 0.35s;
   z-index: 10;
 }
 
@@ -564,5 +585,13 @@
 @media (max-width: 768px) and (prefers-reduced-motion: reduce) {
   .desktop--mobile .bg-shape {
     animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desktop-icon {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }

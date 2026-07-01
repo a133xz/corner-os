@@ -1,0 +1,130 @@
+.desktop-brand-bg {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.desktop-brand-bg__noise {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  mix-blend-mode: soft-light;
+  animation: desktop-noise-in 2s ease 0.2s forwards;
+}
+
+.desktop-brand-bg__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-left: 5rem;
+}
+
+.desktop-brand-bg__title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.02em;
+  margin: 0;
+  font-weight: 800;
+  font-size: clamp(4.5rem, 12vw, 9.5rem);
+  line-height: 0.86;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+
+.desktop-brand-bg__title-line {
+  display: flex;
+  justify-content: center;
+}
+
+.desktop-brand-bg__letter {
+  display: inline-block;
+  white-space: pre;
+  opacity: 0;
+  transform: translateY(0.35em);
+  color: rgba(255, 255, 255, 0.07);
+  animation: desktop-letter-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.desktop-brand-bg__title-line--accent .desktop-brand-bg__letter {
+  background-image: linear-gradient(
+    100deg,
+    rgba(99, 102, 241, 0.15) 0%,
+    rgba(147, 197, 253, 0.28) 30%,
+    rgba(224, 242, 254, 0.5) 50%,
+    rgba(147, 197, 253, 0.28) 70%,
+    rgba(99, 102, 241, 0.15) 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation:
+    desktop-letter-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    desktop-gradient-flow 6s linear 1.4s infinite;
+}
+
+.desktop-brand-bg__tag {
+  margin: 1.4rem 0 0;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.3);
+  opacity: 0;
+  animation: desktop-tag-in 1s cubic-bezier(0.22, 1, 0.36, 1) 1.3s forwards;
+}
+
+@keyframes desktop-letter-in {
+  from { opacity: 0; transform: translateY(0.35em); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes desktop-gradient-flow {
+  from { background-position: 120% 0; }
+  to { background-position: -120% 0; }
+}
+
+@keyframes desktop-noise-in {
+  from { opacity: 0; }
+  to { opacity: 0.22; }
+}
+
+@keyframes desktop-tag-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (min-width: 769px) {
+  .desktop-brand-bg {
+    display: flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desktop-brand-bg__noise {
+    opacity: 0.18;
+    animation: none;
+  }
+
+  .desktop-brand-bg__letter,
+  .desktop-brand-bg__tag {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .desktop-brand-bg__title-line--accent .desktop-brand-bg__letter {
+    background-position: 50% 0;
+  }
+}
