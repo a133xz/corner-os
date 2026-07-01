@@ -11,7 +11,9 @@ const WINDOW_HEIGHT = 550
 const INICIO_WINDOW_WIDTH = 920
 const INICIO_WINDOW_HEIGHT = 600
 const TASKBAR_HEIGHT = 60
-const SHORTCUTS_RESERVED_LEFT = 150
+const SHORTCUTS_COLUMN_LEFT = 30
+const SHORTCUTS_COLUMN_WIDTH = 80
+const WINDOW_GAP_FROM_SHORTCUTS = 16
 const CASCADE_OFFSET = 28
 
 function getWindowSize(appId: string) {
@@ -38,12 +40,10 @@ function getWindowCascadeIndex(appId: string) {
   return apps.filter((app) => !app.externalRoute).findIndex((app) => app.id === appId)
 }
 
-function getCenteredWindowPosition(appId: string, cascadeIndex = 0) {
-  const { width, height } = getWindowSize(appId)
-  const vw = window.innerWidth
+function getWindowPosition(appId: string, cascadeIndex = 0) {
+  const { height } = getWindowSize(appId)
   const vh = window.innerHeight
-  const availableWidth = vw - SHORTCUTS_RESERVED_LEFT
-  const left = SHORTCUTS_RESERVED_LEFT + Math.max(0, (availableWidth - width) / 2) + cascadeIndex * CASCADE_OFFSET
+  const left = SHORTCUTS_COLUMN_LEFT + SHORTCUTS_COLUMN_WIDTH + WINDOW_GAP_FROM_SHORTCUTS + cascadeIndex * CASCADE_OFFSET
   const top = Math.max(24, (vh - TASKBAR_HEIGHT - height) / 2) + cascadeIndex * CASCADE_OFFSET
 
   return { left, top }
@@ -54,7 +54,7 @@ function createInitialWindows(): Record<string, WindowState> {
   apps.forEach((app) => {
     if (app.externalRoute) return
     const cascadeIndex = getWindowCascadeIndex(app.id)
-    const { left, top } = getCenteredWindowPosition(app.id, cascadeIndex)
+    const { left, top } = getWindowPosition(app.id, cascadeIndex)
     const { width, height } = getWindowSize(app.id)
     state[app.id] = {
       visible: false,
@@ -104,7 +104,7 @@ export default function DesktopPage() {
       const cascadeIndex = getWindowCascadeIndex(id)
       const position = wasVisible
         ? { left: prev[id].left, top: prev[id].top }
-        : getCenteredWindowPosition(id, cascadeIndex)
+        : getWindowPosition(id, cascadeIndex)
 
       const updated = { ...prev }
       if (isMobile) {
@@ -166,8 +166,8 @@ export default function DesktopPage() {
           [id]: {
             ...win,
             maximized: false,
-            top: parseInt(win.prevTop ?? String(getCenteredWindowPosition(id, getWindowCascadeIndex(id)).top), 10),
-            left: parseInt(win.prevLeft ?? String(getCenteredWindowPosition(id, getWindowCascadeIndex(id)).left), 10),
+            top: parseInt(win.prevTop ?? String(getWindowPosition(id, getWindowCascadeIndex(id)).top), 10),
+            left: parseInt(win.prevLeft ?? String(getWindowPosition(id, getWindowCascadeIndex(id)).left), 10),
             width: `${width}px`,
             height: `${height}px`,
           },

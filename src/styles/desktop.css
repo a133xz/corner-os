@@ -182,14 +182,16 @@
   flex-direction: column;
   overflow: hidden;
   opacity: 0;
+  visibility: hidden;
   transform: scale(0.95);
   pointer-events: none;
-  transition: opacity 0.3s, transform 0.3s, box-shadow 0.3s;
+  transition: opacity 0.3s, transform 0.3s, box-shadow 0.3s, visibility 0.3s;
   z-index: 10;
 }
 
 .os-window.visible {
   opacity: 1;
+  visibility: visible;
   transform: scale(1);
   pointer-events: all;
 }

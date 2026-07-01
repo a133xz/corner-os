@@ -22,4 +22,4 @@ export const apps: AppDefinition[] = [
   { id: 'contacto', title: 'Contacto', icon: '✉️', content: <ContactoContent /> },
 ]
 
-export const initialOpenApps = ['servicios', 'inicio']
+export const initialOpenApps = ['inicio']
