@@ -1,33 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Corner Estudios | OS</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div id="desktop" class="desktop">
-        <!-- Background elements -->
-        <div class="bg-shape shape-1"></div>
-        <div class="bg-shape shape-2"></div>
-        <div class="bg-shape shape-3"></div>
-
-        <!-- Desktop Shortcuts -->
-        <div id="desktop-shortcuts" class="desktop-shortcuts"></div>
-
-        <!-- Windows Container -->
-        <div id="windows-container" class="windows-container"></div>
-
-        <!-- Taskbar -->
-        <div id="taskbar" class="taskbar">
-            <div class="taskbar-apps" id="taskbar-apps">
-                <!-- App icons will be injected here -->
-            </div>
-            <div class="taskbar-time" id="taskbar-time">10:30 AM</div>
-        </div>
-    </div>
-    <script src="main.js"></script>
-</body>
+    <meta name="description" content="Consultoría digital y tecnológica — Corner Estudios OS" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>

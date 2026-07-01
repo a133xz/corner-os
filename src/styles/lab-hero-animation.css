@@ -1,0 +1,85 @@
+.lab-hero-anim {
+  width: 100%;
+  max-width: 440px;
+  margin-inline: auto;
+}
+
+.lab-hero-anim svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.lab-hero-anim__glow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: lab-glow-pulse 6s ease-in-out infinite;
+}
+
+.lab-hero-anim__orbit {
+  transform-origin: 240px 200px;
+}
+
+.lab-hero-anim__orbit--outer {
+  animation: lab-orbit-spin 48s linear infinite;
+}
+
+.lab-hero-anim__orbit--inner {
+  animation: lab-orbit-spin 32s linear infinite reverse;
+}
+
+.lab-hero-anim__terminal {
+  animation: lab-terminal-float 5s ease-in-out infinite;
+  transform-origin: 240px 200px;
+}
+
+.lab-hero-anim__code {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 11px;
+  letter-spacing: -0.02em;
+}
+
+.lab-hero-anim__code--1 { animation: lab-code-in 5s ease infinite; }
+.lab-hero-anim__code--2 { animation: lab-code-in 5s ease infinite 0.4s; }
+.lab-hero-anim__code--3 { animation: lab-code-in 5s ease infinite 1.6s; }
+.lab-hero-anim__code--4 { animation: lab-code-in 5s ease infinite 2s; }
+
+.lab-hero-anim__cursor {
+  animation: lab-cursor-blink 1s step-end infinite;
+}
+
+@keyframes lab-glow-pulse {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.03); }
+}
+
+@keyframes lab-orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes lab-terminal-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes lab-code-in {
+  0%, 8% { opacity: 0; }
+  18%, 72% { opacity: 1; }
+  82%, 100% { opacity: 0.35; }
+}
+
+@keyframes lab-cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lab-hero-anim__glow,
+  .lab-hero-anim__orbit,
+  .lab-hero-anim__terminal,
+  .lab-hero-anim__code,
+  .lab-hero-anim__cursor {
+    animation: none;
+  }
+}
