@@ -36,8 +36,8 @@ body {
 @media (max-width: 768px) {
   :root {
     --app-bg: radial-gradient(ellipse at 50% 0%, #141414 0%, #0a0a0a 55%, var(--app-bg-color) 100%);
-    --mobile-ambient: rgba(255, 255, 255, 0.035);
-    --mobile-ambient-soft: rgba(255, 255, 255, 0.02);
+    --mobile-ambient: rgba(255, 255, 255, 0.055);
+    --mobile-ambient-soft: rgba(255, 255, 255, 0.032);
   }
 
   html {

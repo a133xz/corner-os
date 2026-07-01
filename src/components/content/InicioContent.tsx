@@ -1,8 +1,17 @@
+import { useCallback, useState } from 'react'
 import '../../styles/inicio-hero.css'
+import { useIsMobile } from '../../hooks/useIsMobile'
 import { InicioBg } from './InicioBg'
+import { InicioBoot } from './InicioBoot'
+import { InicioMobileCanvas } from './InicioMobileCanvas'
+import { InicioMobileDraw } from './InicioMobileDraw'
 
 const CORNER = 'CORNER'
 const ESTUDIOS = 'ESTUDIOS'
+
+function prefersReducedMotion() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+}
 
 function TitleLetters({
   word,
@@ -14,8 +23,8 @@ function TitleLetters({
   mobile?: boolean
 }) {
   const offset = accent ? CORNER.length : 0
-  const base = mobile ? 0.08 : 0.12
-  const step = mobile ? 0.035 : 0.045
+  const base = mobile ? 0.12 : 0.12
+  const step = mobile ? 0.036 : 0.045
 
   return (
     <>
@@ -36,10 +45,28 @@ function TitleLetters({
 }
 
 export function InicioContent() {
+  const isMobile = useIsMobile()
+  const [booted, setBooted] = useState(() => !isMobile || prefersReducedMotion())
+  const onBootComplete = useCallback(() => setBooted(true), [])
+
+  const heroClassName = [
+    'inicio-hero',
+    'window-hero',
+    'window-hero--centered',
+    'inicio-hero--splash',
+    isMobile ? (booted ? 'inicio-hero--booted' : 'inicio-hero--booting') : '',
+  ]
+    .filter(Boolean)
+    .join(' ')
+
   return (
-    <div className="inicio-hero window-hero window-hero--centered inicio-hero--splash">
+    <div className={heroClassName}>
+      {isMobile && !booted ? <InicioBoot onComplete={onBootComplete} /> : null}
+
       <InicioBg />
-      <div className="inicio-mobile-bg" aria-hidden="true" />
+      <InicioMobileCanvas />
+      <InicioMobileDraw />
+      <div className="inicio-mobile-shimmer" aria-hidden="true" />
 
       <div className="inicio-stack">
         <div className="inicio-headline">
