@@ -60,6 +60,31 @@
 .inicio-headline {
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: visible;
+}
+
+.inicio-headline .inicio-hero-fx {
+  position: absolute;
+  top: 56%;
+  left: 50%;
+  width: min(480px, 130%);
+  height: min(480px, 130%);
+  transform: translate(-50%, -50%);
+  inset: auto;
+  overflow: visible;
+}
+
+.inicio-headline .inicio-hero-glow,
+.inicio-headline .inicio-hero-ring {
+  top: 50%;
+  left: 50%;
+}
+
+.inicio-headline .inicio-eyebrow,
+.inicio-headline .inicio-title {
+  position: relative;
+  z-index: 1;
 }
 
 .inicio-eyebrow {
@@ -162,12 +187,13 @@
   .inicio-hero-glow {
     width: 440px;
     height: 440px;
-    top: 42%;
     background: radial-gradient(circle, rgba(37, 99, 235, 0.42) 0%, rgba(79, 70, 229, 0.14) 42%, transparent 72%);
   }
 
-  .inicio-hero-ring {
-    top: 44%;
+  .inicio-headline .inicio-hero-fx {
+    width: min(520px, 140%);
+    height: min(520px, 140%);
+    top: 58%;
   }
 
   .inicio-hero-ring--1 {
@@ -234,34 +260,41 @@
 @media (max-width: 768px) {
   .inicio-hero {
     justify-content: flex-start;
-    padding-top: 2.5rem;
+    padding-top: 1.25rem;
+    overflow: visible;
+  }
+
+  .inicio-headline .inicio-hero-fx {
+    width: min(360px, 105vw);
+    height: min(360px, 105vw);
+    top: 54%;
   }
 
   .inicio-hero-glow {
-    width: min(380px, 95vw);
-    height: min(380px, 95vw);
-    top: 12%;
+    width: min(320px, 88vw);
+    height: min(320px, 88vw);
     animation-duration: 4s;
   }
 
   .inicio-hero-ring--1 {
-    width: 260px;
-    height: 260px;
-    top: 14%;
+    width: 220px;
+    height: 220px;
   }
 
   .inicio-hero-ring--2 {
-    width: 340px;
-    height: 340px;
-    top: 14%;
+    width: 290px;
+    height: 290px;
   }
 
   .window-content .inicio-title {
-    font-size: 2.75rem;
+    font-size: clamp(3.35rem, 13.5vw, 4.5rem);
+    letter-spacing: -0.03em;
+    line-height: 0.9;
   }
 
   .inicio-eyebrow {
     font-size: 0.68rem;
+    margin-bottom: 1.15rem;
   }
 
   .inicio-cta {

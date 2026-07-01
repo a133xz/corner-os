@@ -343,65 +343,68 @@
   }
 
   .desktop--mobile .bg-shape {
-    animation: mobile-aurora 18s ease-in-out infinite;
-    filter: blur(90px);
+    animation: mobile-aurora 16s ease-in-out infinite;
+    filter: blur(85px);
   }
 
   .desktop--mobile .shape-1 {
-    width: 260px;
-    height: 260px;
-    top: 5%;
-    left: -22%;
-    opacity: 0.38;
+    width: 270px;
+    height: 270px;
+    background: #2a266e;
+    top: 4%;
+    left: -20%;
+    opacity: 0.46;
   }
 
   .desktop--mobile .shape-2 {
-    width: 300px;
-    height: 300px;
-    bottom: -18%;
-    right: -28%;
+    width: 310px;
+    height: 310px;
+    background: #1e40af;
+    bottom: -16%;
+    right: -26%;
     animation-delay: -4s;
-    opacity: 0.32;
+    opacity: 0.4;
   }
 
   .desktop--mobile .shape-3 {
-    width: 220px;
-    height: 220px;
-    top: 38%;
-    left: 52%;
+    width: 230px;
+    height: 230px;
+    background: #4338ca;
+    top: 36%;
+    left: 54%;
     animation-delay: -8s;
-    opacity: 0.28;
+    opacity: 0.36;
   }
 
   .desktop--mobile.desktop--home .bg-shape {
-    animation-duration: 14s;
-    filter: blur(80px);
+    animation-duration: 13s;
+    filter: blur(75px);
   }
 
   .desktop--mobile.desktop--home .shape-1 {
-    width: 280px;
-    height: 280px;
+    width: 290px;
+    height: 290px;
     background: #312e81;
-    left: -20%;
-    opacity: 0.55;
+    left: -18%;
+    opacity: 0.58;
   }
 
   .desktop--mobile.desktop--home .shape-2 {
-    width: 320px;
-    height: 320px;
+    width: 330px;
+    height: 330px;
     background: #1d4ed8;
-    bottom: -15%;
-    right: -25%;
-    opacity: 0.48;
+    bottom: -14%;
+    right: -24%;
+    opacity: 0.5;
   }
 
   .desktop--mobile.desktop--home .shape-3 {
-    width: 240px;
-    height: 240px;
+    width: 250px;
+    height: 250px;
     background: #4f46e5;
-    top: 35%;
-    left: 55%;
-    opacity: 0.42;
+    top: 34%;
+    left: 56%;
+    opacity: 0.44;
   }
 
   .desktop--mobile .window-header {
@@ -417,9 +420,9 @@
   }
 
   .desktop--mobile .os-window {
-    background: rgba(10, 10, 10, 0.72);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: rgba(8, 12, 24, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 
   .desktop--mobile.desktop--home .os-window.visible {
@@ -428,8 +431,13 @@
     -webkit-backdrop-filter: none;
   }
 
+  .desktop--mobile.desktop--home .windows-container {
+    overflow: visible;
+  }
+
   .desktop--mobile.desktop--home .window-content {
     background: transparent;
+    overflow: visible;
   }
 
   .os-window {
@@ -451,6 +459,10 @@
 
   .window-content:has(.window-hero) {
     overflow: hidden;
+  }
+
+  .desktop--mobile.desktop--home .window-content:has(.window-hero) {
+    overflow: visible;
   }
   .window-content h1 { font-size: 2.5rem; }
   .window-content h2 { font-size: 1.8rem; }

@@ -3,13 +3,13 @@ import '../../styles/inicio-hero.css'
 export function InicioContent() {
   return (
     <div className="inicio-hero window-hero window-hero--centered inicio-hero--splash">
-      <div className="inicio-hero-fx" aria-hidden="true">
-        <div className="inicio-hero-glow" />
-        <div className="inicio-hero-ring inicio-hero-ring--1" />
-        <div className="inicio-hero-ring inicio-hero-ring--2" />
-      </div>
-
       <div className="inicio-headline">
+        <div className="inicio-hero-fx" aria-hidden="true">
+          <div className="inicio-hero-glow" />
+          <div className="inicio-hero-ring inicio-hero-ring--1" />
+          <div className="inicio-hero-ring inicio-hero-ring--2" />
+        </div>
+
         <p className="inicio-eyebrow">Consultoría digital · tecnología</p>
 
         <h1 className="inicio-title">
