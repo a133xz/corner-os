@@ -5,7 +5,9 @@ import ChatDemo from '../components/lab/ChatDemo'
 import UnicodeBugLab from '../components/lab/UnicodeBugLab'
 import HotelManagerDemo from '../components/lab/HotelManagerDemo'
 import LabHeroAnimation from '../components/lab/LabHeroAnimation'
+import BottomNav from '../components/BottomNav'
 import '../styles/lab.css'
+import '../styles/bottom-nav.css'
 
 const sections = [
   {
@@ -42,7 +44,7 @@ const scrollTo = (id: string) => {
 
 export default function LabPage() {
   return (
-    <div className="lab-page">
+    <div className="lab-page page-with-bottom-nav">
       <div className="lab-bg-shape lab-shape-1" />
       <div className="lab-bg-shape lab-shape-2" />
       <div className="lab-bg-shape lab-shape-3" />
@@ -168,6 +170,8 @@ export default function LabPage() {
           <Link to="/" className="lab-back">← Volver al escritorio</Link>
         </div>
       </footer>
+
+      <BottomNav />
     </div>
   )
 }

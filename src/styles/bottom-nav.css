@@ -1,0 +1,70 @@
+.bottom-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.bottom-nav-link {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.bottom-nav-link:hover,
+.bottom-nav-link.active {
+  color: #fff;
+}
+
+.bottom-nav--taskbar {
+  position: absolute;
+  left: 20px;
+}
+
+.bottom-nav--bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  height: 48px;
+  padding: 0 1.5rem;
+  justify-content: center;
+  background: var(--taskbar-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--glass-border);
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.4);
+}
+
+.page-with-bottom-nav {
+  padding-bottom: 48px;
+}
+
+@media (max-width: 768px) {
+  .bottom-nav--taskbar {
+    display: flex;
+    position: static;
+    order: 2;
+    width: 100%;
+    justify-content: center;
+    gap: 0.85rem;
+    padding-top: 0.75rem;
+    margin-top: 0.15rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .bottom-nav--bar {
+    gap: 0.85rem;
+    padding: 0 1rem;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .bottom-nav-link {
+    font-size: 0.72rem;
+  }
+}

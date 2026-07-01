@@ -1,13 +1,25 @@
 import { useCallback, useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { apps, initialOpenApps } from '../data/apps'
+import BottomNav from '../components/BottomNav'
+import { useIsMobile } from '../hooks/useIsMobile'
 import '../styles/desktop.css'
+import '../styles/bottom-nav.css'
 
 const WINDOW_WIDTH = 800
 const WINDOW_HEIGHT = 550
+const INICIO_WINDOW_WIDTH = 920
+const INICIO_WINDOW_HEIGHT = 600
 const TASKBAR_HEIGHT = 60
 const SHORTCUTS_RESERVED_LEFT = 150
 const CASCADE_OFFSET = 28
+
+function getWindowSize(appId: string) {
+  if (appId === 'inicio') {
+    return { width: INICIO_WINDOW_WIDTH, height: INICIO_WINDOW_HEIGHT }
+  }
+  return { width: WINDOW_WIDTH, height: WINDOW_HEIGHT }
+}
 
 interface WindowState {
   visible: boolean
@@ -26,12 +38,13 @@ function getWindowCascadeIndex(appId: string) {
   return apps.filter((app) => !app.externalRoute).findIndex((app) => app.id === appId)
 }
 
-function getCenteredWindowPosition(cascadeIndex = 0) {
+function getCenteredWindowPosition(appId: string, cascadeIndex = 0) {
+  const { width, height } = getWindowSize(appId)
   const vw = window.innerWidth
   const vh = window.innerHeight
   const availableWidth = vw - SHORTCUTS_RESERVED_LEFT
-  const left = SHORTCUTS_RESERVED_LEFT + Math.max(0, (availableWidth - WINDOW_WIDTH) / 2) + cascadeIndex * CASCADE_OFFSET
-  const top = Math.max(24, (vh - TASKBAR_HEIGHT - WINDOW_HEIGHT) / 2) + cascadeIndex * CASCADE_OFFSET
+  const left = SHORTCUTS_RESERVED_LEFT + Math.max(0, (availableWidth - width) / 2) + cascadeIndex * CASCADE_OFFSET
+  const top = Math.max(24, (vh - TASKBAR_HEIGHT - height) / 2) + cascadeIndex * CASCADE_OFFSET
 
   return { left, top }
 }
@@ -41,14 +54,15 @@ function createInitialWindows(): Record<string, WindowState> {
   apps.forEach((app) => {
     if (app.externalRoute) return
     const cascadeIndex = getWindowCascadeIndex(app.id)
-    const { left, top } = getCenteredWindowPosition(cascadeIndex)
+    const { left, top } = getCenteredWindowPosition(app.id, cascadeIndex)
+    const { width, height } = getWindowSize(app.id)
     state[app.id] = {
       visible: false,
       active: false,
       left,
       top,
-      width: `${WINDOW_WIDTH}px`,
-      height: `${WINDOW_HEIGHT}px`,
+      width: `${width}px`,
+      height: `${height}px`,
       maximized: false,
       zIndex: 10,
     }
@@ -58,6 +72,7 @@ function createInitialWindows(): Record<string, WindowState> {
 
 export default function DesktopPage() {
   const navigate = useNavigate()
+  const isMobile = useIsMobile()
   const [windows, setWindows] = useState(createInitialWindows)
   const [, setZCounter] = useState(100)
   const [time, setTime] = useState('')
@@ -89,15 +104,22 @@ export default function DesktopPage() {
       const cascadeIndex = getWindowCascadeIndex(id)
       const position = wasVisible
         ? { left: prev[id].left, top: prev[id].top }
-        : getCenteredWindowPosition(cascadeIndex)
+        : getCenteredWindowPosition(id, cascadeIndex)
 
-      return {
-        ...prev,
-        [id]: { ...prev[id], visible: true, ...position },
+      const updated = { ...prev }
+      if (isMobile) {
+        for (const key of Object.keys(updated)) {
+          if (key !== id) {
+            updated[key] = { ...updated[key], visible: false, active: false }
+          }
+        }
       }
+      updated[id] = { ...updated[id], visible: true, ...position }
+
+      return updated
     })
     bringToFront(id)
-  }, [bringToFront, navigate])
+  }, [bringToFront, navigate, isMobile])
 
   const closeWindow = useCallback((id: string) => {
     setWindows((prev) => ({
@@ -121,26 +143,33 @@ export default function DesktopPage() {
     }
     const win = windows[id]
     if (win.visible) {
-      if (win.active) minimizeWindow(id)
-      else bringToFront(id)
+      if (isMobile) {
+        if (win.active) minimizeWindow(id)
+        else bringToFront(id)
+      } else if (win.active) {
+        minimizeWindow(id)
+      } else {
+        bringToFront(id)
+      }
     } else {
       openWindow(id)
     }
-  }, [windows, minimizeWindow, bringToFront, openWindow, navigate])
+  }, [windows, minimizeWindow, bringToFront, openWindow, navigate, isMobile])
 
   const maximizeWindow = useCallback((id: string) => {
     setWindows((prev) => {
       const win = prev[id]
       if (win.maximized) {
+        const { width, height } = getWindowSize(id)
         return {
           ...prev,
           [id]: {
             ...win,
             maximized: false,
-            top: parseInt(win.prevTop ?? String(getCenteredWindowPosition(getWindowCascadeIndex(id)).top), 10),
-            left: parseInt(win.prevLeft ?? String(getCenteredWindowPosition(getWindowCascadeIndex(id)).left), 10),
-            width: `${WINDOW_WIDTH}px`,
-            height: `${WINDOW_HEIGHT}px`,
+            top: parseInt(win.prevTop ?? String(getCenteredWindowPosition(id, getWindowCascadeIndex(id)).top), 10),
+            left: parseInt(win.prevLeft ?? String(getCenteredWindowPosition(id, getWindowCascadeIndex(id)).left), 10),
+            width: `${width}px`,
+            height: `${height}px`,
           },
         }
       }
@@ -207,13 +236,19 @@ export default function DesktopPage() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      initialOpenApps.forEach((id) => openWindow(id))
+      if (window.matchMedia('(max-width: 768px)').matches) {
+        openWindow('inicio')
+      } else {
+        initialOpenApps.forEach((id) => openWindow(id))
+      }
     }, 300)
     return () => clearTimeout(timer)
   }, [openWindow])
 
+  const isHomeActive = isMobile && windows.inicio?.visible && windows.inicio?.active
+
   return (
-    <div className="desktop">
+    <div className={`desktop${isMobile ? ' desktop--mobile' : ''}${isHomeActive ? ' desktop--home' : ''}`}>
       <div className="bg-shape shape-1" />
       <div className="bg-shape shape-2" />
       <div className="bg-shape shape-3" />
@@ -246,7 +281,7 @@ export default function DesktopPage() {
           return (
             <div
               key={app.id}
-              className={`os-window${win.visible ? ' visible' : ''}${win.active ? ' active' : ''}`}
+              className={`os-window${win.visible ? ' visible' : ''}${win.active ? ' active' : ''}${app.id === 'inicio' ? ' os-window--inicio' : ''}`}
               style={{
                 left: win.left,
                 top: win.top,
@@ -276,20 +311,22 @@ export default function DesktopPage() {
       </div>
 
       <div className="taskbar">
+        <BottomNav variant="taskbar" />
         <div className="taskbar-apps">
           {apps.map((app) => {
             const win = windows[app.id]
-            const isOpen = app.externalRoute ? false : win.visible
-            const isActive = app.externalRoute ? false : win.active && win.visible
+            const isOpen = !isMobile && !app.externalRoute && win.visible
+            const isActive = !app.externalRoute && win.active && win.visible
             return (
               <button
                 key={app.id}
                 type="button"
-                className={`taskbar-icon${isOpen ? ' open' : ''}${isActive ? ' active' : ''}`}
+                className={`taskbar-icon${isOpen ? ' open' : ''}${isActive ? ' active' : ''}${isMobile ? ' taskbar-icon--mobile-tab' : ''}`}
                 title={app.title}
                 onClick={() => toggleWindow(app.id)}
               >
-                {app.icon}
+                <span className="taskbar-icon-glyph" aria-hidden="true">{app.icon}</span>
+                <span className="taskbar-icon-label">{app.title}</span>
               </button>
             )
           })}

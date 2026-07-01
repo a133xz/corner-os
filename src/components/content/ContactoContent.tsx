@@ -8,11 +8,6 @@ export function ContactoContent() {
       <div className="email-box">
         <a href="mailto:contacto@corner-estudios.com">contacto@corner-estudios.com</a>
       </div>
-      <div className="social-links">
-        <a href="#">Aviso Legal</a>
-        <a href="#">Política de Privacidad</a>
-        <a href="#">Términos y Condiciones</a>
-      </div>
     </div>
   )
 }
