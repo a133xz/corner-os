@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react'
-import { InicioContent } from '../components/content/InicioContent'
 import { ServiciosContent } from '../components/content/ServiciosContent'
 import { NosotrosContent } from '../components/content/NosotrosContent'
 import { ProyectosContent } from '../components/content/ProyectosContent'
@@ -14,7 +13,7 @@ export interface AppDefinition {
 }
 
 export const apps: AppDefinition[] = [
-  { id: 'inicio', title: 'Inicio', icon: '🏠', content: <InicioContent /> },
+  { id: 'inicio', title: 'Inicio', icon: '🏠' },
   { id: 'servicios', title: 'Servicios', icon: '⚙️', content: <ServiciosContent /> },
   { id: 'nosotros', title: 'Nosotros', icon: '👥', content: <NosotrosContent /> },
   { id: 'proyectos', title: 'Proyectos', icon: '📁', content: <ProyectosContent /> },

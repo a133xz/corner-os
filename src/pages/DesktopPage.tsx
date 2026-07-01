@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { apps, initialOpenApps } from '../data/apps'
 import BottomNav from '../components/BottomNav'
 import DesktopBrandBg from '../components/DesktopBrandBg'
+import { InicioContent } from '../components/content/InicioContent'
 import { useIsMobile } from '../hooks/useIsMobile'
 import '../styles/desktop.css'
 import '../styles/bottom-nav.css'
@@ -307,7 +308,11 @@ export default function DesktopPage() {
                 <div className="window-title">{app.title} - Corner Estudios</div>
                 <div className="window-header-spacer" />
               </div>
-              <div className="window-content">{app.content}</div>
+              <div className="window-content">
+                {app.id === 'inicio'
+                  ? win.visible && <InicioContent />
+                  : app.content}
+              </div>
             </div>
           )
         })}
