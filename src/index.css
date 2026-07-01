@@ -1,4 +1,6 @@
 :root {
+  --app-bg-color: #020617;
+  --app-bg: radial-gradient(circle at 50% 50%, #0f172a, var(--app-bg-color));
   --glass-bg: rgba(255, 255, 255, 0.05);
   --glass-border: rgba(255, 255, 255, 0.15);
   --text-color: #ffffff;
@@ -25,9 +27,23 @@ html {
 
 body {
   font-family: var(--font-body);
-  background-color: #050505;
+  background: var(--app-bg);
+  background-color: var(--app-bg-color);
   color: var(--text-color);
   -webkit-font-smoothing: antialiased;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --app-bg: radial-gradient(ellipse at 50% 0%, #141414 0%, #0a0a0a 55%, var(--app-bg-color) 100%);
+    --mobile-ambient: rgba(255, 255, 255, 0.035);
+    --mobile-ambient-soft: rgba(255, 255, 255, 0.02);
+  }
+
+  html {
+    background: var(--app-bg);
+    background-color: var(--app-bg-color);
+  }
 }
 
 #root {

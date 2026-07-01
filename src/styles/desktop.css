@@ -6,7 +6,7 @@
   position: relative;
   width: 100vw;
   height: 100vh;
-  background: radial-gradient(circle at 50% 50%, #0f172a, #020617);
+  background: var(--app-bg);
   overflow: hidden;
 }
 
@@ -289,7 +289,7 @@
 .window-content .subtitle--large { font-size: 1.5rem; max-width: 100%; }
 .window-content .subtitle--centered { text-align: center; }
 .window-hero--centered { height: 100%; display: flex; flex-direction: column; justify-content: center; }
-.window-hero--centered > .btn { align-self: flex-start; margin-top: 20px; }
+.window-hero--centered > .btn:not(.inicio-cta) { align-self: flex-start; margin-top: 20px; }
 .window-contacto.window-hero--centered { align-items: center; }
 
 .os-window--inicio .window-content {
@@ -358,7 +358,7 @@
     flex-direction: column;
     height: 100dvh;
     min-height: 100dvh;
-    background: radial-gradient(ellipse at 50% 0%, #1e3a5f 0%, #0f172a 45%, #020617 100%);
+    background: var(--app-bg);
   }
 
   .desktop-shortcuts {
@@ -373,61 +373,61 @@
   .desktop--mobile .shape-1 {
     width: 270px;
     height: 270px;
-    background: #2a266e;
+    background: #18181b;
     top: 4%;
     left: -20%;
-    opacity: 0.46;
+    opacity: 0.32;
   }
 
   .desktop--mobile .shape-2 {
     width: 310px;
     height: 310px;
-    background: #1e40af;
+    background: #141416;
     bottom: -16%;
     right: -26%;
     animation-delay: -4s;
-    opacity: 0.4;
+    opacity: 0.28;
   }
 
   .desktop--mobile .shape-3 {
     width: 230px;
     height: 230px;
-    background: #4338ca;
+    background: #1c1c20;
     top: 36%;
     left: 54%;
     animation-delay: -8s;
-    opacity: 0.36;
+    opacity: 0.24;
   }
 
   .desktop--mobile.desktop--home .bg-shape {
-    animation-duration: 13s;
-    filter: blur(75px);
+    animation-duration: 16s;
+    filter: blur(90px);
   }
 
   .desktop--mobile.desktop--home .shape-1 {
     width: 290px;
     height: 290px;
-    background: #312e81;
+    background: #161618;
     left: -18%;
-    opacity: 0.58;
+    opacity: 0.34;
   }
 
   .desktop--mobile.desktop--home .shape-2 {
     width: 330px;
     height: 330px;
-    background: #1d4ed8;
+    background: #121214;
     bottom: -14%;
     right: -24%;
-    opacity: 0.5;
+    opacity: 0.3;
   }
 
   .desktop--mobile.desktop--home .shape-3 {
     width: 250px;
     height: 250px;
-    background: #4f46e5;
+    background: #1a1a1e;
     top: 34%;
     left: 56%;
-    opacity: 0.44;
+    opacity: 0.26;
   }
 
   .desktop--mobile .window-header {
@@ -446,6 +446,24 @@
     background: rgba(8, 12, 24, 0.5);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    transform: none;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .desktop--mobile .os-window--inicio,
+  .desktop--mobile .os-window--inicio.active,
+  .desktop--mobile .os-window--inicio.visible {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    box-shadow: none;
+  }
+
+  .desktop--mobile .os-window.visible {
+    transform: none;
   }
 
   .desktop--mobile.desktop--home .os-window.visible {
@@ -455,12 +473,35 @@
   }
 
   .desktop--mobile.desktop--home .windows-container {
-    overflow: visible;
+    overflow: hidden;
   }
 
-  .desktop--mobile.desktop--home .window-content {
+  .desktop--mobile.desktop--home .window-content:has(.window-hero) {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     background: transparent;
-    overflow: visible;
+    padding: 0;
+  }
+
+  .desktop--mobile .os-window--inicio .window-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    height: 100%;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .desktop--mobile.desktop--home .os-window {
+    display: flex;
+    flex-direction: column;
   }
 
   .os-window {
@@ -470,6 +511,11 @@
     left: 0 !important;
     bottom: auto !important;
     border-radius: 0;
+    border: none;
+    box-shadow: none;
+  }
+
+  .os-window--inicio.active {
     border: none;
     box-shadow: none;
   }
@@ -484,9 +530,6 @@
     overflow: hidden;
   }
 
-  .desktop--mobile.desktop--home .window-content:has(.window-hero) {
-    overflow: visible;
-  }
   .window-content h1 { font-size: 2.5rem; }
   .window-content h2 { font-size: 1.8rem; }
   .window-content .subtitle { font-size: 1rem; }
@@ -509,6 +552,9 @@
     gap: 0.85rem;
     padding: 0.65rem 0.5rem calc(0.65rem + env(safe-area-inset-bottom, 0px));
     border-radius: 0;
+    background: var(--taskbar-bg);
+    border-top: 1px solid var(--glass-border);
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
     z-index: 10000;
   }
 
